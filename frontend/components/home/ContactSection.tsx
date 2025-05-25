@@ -69,7 +69,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <h4 className="font-medium mb-1">Our Location</h4>
-                    <p className="text-muted-foreground">123 Education Street, Learning City, 12345</p>
+                    <p className="text-muted-foreground">Nayapara Panchsheel Nagar Durg (C.G.) </p>
                   </div>
                 </div>
                 

@@ -14,6 +14,8 @@ const {
     detailStudent,
 } = require('../controllers/studentAuth')
 
+
+
 if(process.env.NODE_ENV === 'development'){
     router.post('/register/admin',registerAdmin);
 }
@@ -29,6 +31,13 @@ router.patch('/student/partiallyUpdate/:id',partialUpdateStudent);
 router.get('/student/list',listStudent);
 
 router.get('/student/profile/:id',detailStudent);
+
+
+router.post('/check/isAdmin',(req,res) => {
+    console.log("Admin Authorized");
+    // res.sen(200).json({messaege: "hello"});
+});
+
 
 
 module.exports = router;

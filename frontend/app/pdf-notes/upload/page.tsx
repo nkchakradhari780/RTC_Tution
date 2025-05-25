@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { UploadCloud } from "lucide-react";
-import axios from 'axios';
+import axios from "axios";
 
 type FormDataType = {
   courseId: string;
@@ -25,7 +25,7 @@ type FormDataType = {
 
 export default function UploadNotePage() {
   const [formData, setFormData] = useState<FormDataType>({
-    courseId: "other", // Default value is "other"
+    courseId: "other",
     title: "",
     description: "",
     subject: "",
@@ -44,9 +44,10 @@ export default function UploadNotePage() {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
-    const newValue = type === "checkbox" && "checked" in e.target
-      ? (e.target as HTMLInputElement).checked
-      : value;
+    const newValue =
+      type === "checkbox" && "checked" in e.target
+        ? (e.target as HTMLInputElement).checked
+        : value;
 
     setFormData((prev) => ({
       ...prev,
@@ -62,37 +63,39 @@ export default function UploadNotePage() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-  
+
     if (!pdf) {
       alert("Please upload a PDF");
       return;
     }
-  
+
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       data.append(key, String(value));
     });
     data.append("note", pdf);
-  
+
     try {
       const res = await axios.post("http://localhost:3001/notes/upload", data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
+        withCredentials: true,
       });
-  
+
       if (res.status === 200) {
         const noteId = res.data.note._id;
-  
-        // Call thumbnail generation API after successful upload
+
         try {
-          const thumbRes = await axios.post(`http://localhost:3001/notes/${noteId}/thumbnail`);
+          const thumbRes = await axios.post(
+            `http://localhost:3001/notes/${noteId}/thumbnail`
+          );
           console.log("Thumbnail generated:", thumbRes.data.thumbnail);
         } catch (thumbErr) {
           console.error("Thumbnail generation failed:", thumbErr);
           alert("Note uploaded but thumbnail generation failed");
         }
-  
+
         alert("Note uploaded successfully");
         router.push("/dashboard/admin");
       } else {
@@ -103,9 +106,8 @@ export default function UploadNotePage() {
       alert("Something went wrong!");
     }
   };
-  
 
-  return ( 
+  return (
     <div className="max-w-3xl mx-auto p-6">
       <Card>
         <CardContent className="space-y-6 p-6">
@@ -116,7 +118,7 @@ export default function UploadNotePage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <Label>Course ID</Label>
-              <select 
+              <select
                 name="courseId"
                 value={formData.courseId}
                 onChange={handleChange}
@@ -131,7 +133,7 @@ export default function UploadNotePage() {
               </select>
             </div>
 
-            {[ 
+            {[
               { name: "title", label: "Title" },
               { name: "subject", label: "Subject" },
               { name: "course", label: "Course (ObjectId)" },
@@ -189,7 +191,7 @@ export default function UploadNotePage() {
               <Label>Select PDF File</Label>
               <Input
                 type="file"
-                name="note" // ✅ important for FormData mapping
+                name="note"
                 accept=".pdf"
                 onChange={handleFileChange}
                 required
@@ -205,4 +207,3 @@ export default function UploadNotePage() {
     </div>
   );
 }
-  
