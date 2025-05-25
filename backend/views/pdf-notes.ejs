@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload PDF Note</title>
+</head>
+<body>
+  <h1>Upload PDF Note</h1>
+
+  <form action="/notes/upload" method="POST" enctype="multipart/form-data">
+    
+
+    <label for="title">Title:</label><br>
+    <input type="text" name="title" id="title" required><br><br>
+
+    <label for="description">Description:</label><br>
+    <textarea name="description" id="description" required></textarea><br><br>
+
+    <label for="thumbnail">Thumbnail URL:</label><br>
+    <input type="text" name="thumbnail" id="thumbnail" required><br><br>
+
+    <label for="subject">Subject:</label><br>
+    <input type="text" name="subject" id="subject" required><br><br>
+
+    <label for="course">Course (Name or ID):</label><br>
+    <input type="text" name="course" id="course" required><br><br>
+
+    <label for="courseId">Course ID:</label><br>
+    <input type="text" name="courseId" id="courseId" required><br><br>
+
+    <label for="instructor">Instructor:</label><br>
+    <input type="text" name="instructor" id="instructor" required><br><br>
+
+   
+    <label for="isPremium">Is Premium:</label><br>
+    <select name="isPremium" id="isPremium" required>
+      <option value="false">No</option>
+      <option value="true">Yes</option>
+    </select><br><br>
+
+    <label for="previewAvailable">Preview Available:</label><br>
+    <select name="previewAvailable" id="previewAvailable" required>
+      <option value="false">No</option>
+      <option value="true">Yes</option>
+    </select><br><br>
+
+    <label for="downloadUrl">Download URL:</label><br>
+    <input type="text" name="downloadUrl" id="downloadUrl" required><br><br>
+
+    <label for="note">Upload PDF File (optional):</label><br>
+    <input type="file" name="note" id="note" accept=".pdf"><br><br>
+
+    <button type="submit">Upload Note</button>
+  </form>
+</body>
+</html>
