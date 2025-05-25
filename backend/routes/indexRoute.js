@@ -1,5 +1,6 @@
 const express = require('express');
 router = express.Router();
+
 const {
     registerAdmin,
 } = require('../controllers/adminAuth')
@@ -12,13 +13,8 @@ const {
     registerStudent,
 } = require('../controllers/studentAuth')
 
-const {
-    isAdmin
-} = require('../middlewares/isAdmin')
 
 
-
-// console.log("IndexRoute:");
 
 router.post('/login',LoginHandler)
 
